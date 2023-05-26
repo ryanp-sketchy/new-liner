@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>New Liner</title>
+
+	<style>
+		* {
+			font-family: system-ui;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			display: flex;
+			flex-direction: column;
+			margin: 0 auto;
+			max-width: 500px;
+		}
+
+		textarea {
+			height: 80%;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>New Liner</h1>
+	<textarea
+		id="textarea"
+		placeholder="Paste formatted text here..."
+	></textarea>
+
+	<script type="text/javascript">
+		const copyTextToClipboard = (text) => {
+			if (!navigator.clipboard) {
+				alert('Unsupported browser.');
+				return;
+			}
+			navigator.clipboard
+				.writeText(text)
+				.then(() => alert('Copied to clipboard!'))
+				.catch((err) => alert(`Could not copy text:  ${err}`));
+		}
+
+		const newLine = (event) => {
+			const { value } = event.target;
+			if (!value) return;
+			try {
+				copyTextToClipboard(JSON.stringify(event.target.value));
+			} catch (error) {
+				alert(`Unknown error: #${error}`);
+			}
+		};
+
+		document.getElementById('textarea')
+			.addEventListener('input', newLine);
+	</script>
+</body>
+
+</html>
